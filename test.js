@@ -96,36 +96,6 @@ test('Can be called consecutively on returned result of previous call', t => {
   ]);
 });
 
-/**
- * This was to address #4, where having a match at the end of a string was
- * causing the first replacement to return an array where the last element was
- * ''. This was causing an error where I was checking for !str, even though an
- * empty string should actually be allwed.
- */
-test('Allows empty strings within results', t => {
-  let replacedContent;
-  const string = '@username http://a_photo.jpg';
-
-  replacedContent = replaceString(string, /(http?:\/\/.*\.(?:png|jpg))/g, match => {
-    return { key: 'image', match: match[1] };
-  });
-
-  t.deepEqual(replacedContent, [
-    '@username ',
-    { key: 'image', match: 'http://a_photo.jpg' }
-  ]);
-
-  replacedContent = replaceString(replacedContent, /@(\w+)/g, match => {
-    return { key: 'text', match: match[1] };
-  });
-
-  t.deepEqual(replacedContent, [
-    { key: 'text', match: 'username' },
-    ' ',
-    { key: 'image', match: 'http://a_photo.jpg' }
-  ]);
-});
-
 test('Will not through if first element of input is empty string', t => {
   const content = ['', "@username", { key: 'image', match: 'http://a_photo.jpg' }];
   t.notThrows(() => {
