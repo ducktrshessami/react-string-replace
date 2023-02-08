@@ -1,9 +1,9 @@
 declare module 'react-string-replace' {
   function reactStringReplace(
-    text?: string | React.ReactNodeArray, 
+    text?: string | React.ReactNode[], 
     regex?: string | RegExp, 
-    cb?: (match: string, index: number, offset: number) => React.ReactNode
-  ): React.ReactNodeArray;
+    cb?: (match: RegExpExecArray, index: number) => React.ReactNode | React.ReactNode[]
+  ): React.ReactNode[];
 
   export default reactStringReplace;
 }
