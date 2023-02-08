@@ -9,7 +9,7 @@ Forked to allow the replacer function to utilize a raw match result array as ret
 ## Install
 
 ```sh
-yarn add react-string-replace
+yarn add ducktrshessami/react-string-replace
 ```
 
 
