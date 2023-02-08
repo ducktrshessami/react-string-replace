@@ -66,7 +66,7 @@ function replaceString(str, match, fn) {
       results.push(str.slice(curCharStart, result.index));
     }
 
-    results.push(fn(result[0], i, result.index));
+    results.push(fn(result, i));
     curCharStart = result.index + result[0].length;
     re.lastIndex = curCharStart;
   }
