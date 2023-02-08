@@ -57,7 +57,15 @@ function replaceString(str, match, fn) {
     throw new TypeError('First argument to react-string-replace#replaceString must be a string');
   }
 
-  var re = isRegExp(match) ? new RegExp(match) : new RegExp('(' + escapeRegExp(match) + ')', 'gi');
+  var re = null;
+
+  if (isRegExp(match)) {
+    re = new RegExp(match, match.flags.replace(/[gy]/gi, '') + 'g');
+  }
+  else {
+    re = new RegExp('(' + escapeRegExp(match) + ')', 'gi');
+  }
+
   var results = [];
   var curCharStart = 0;
 
@@ -68,7 +76,6 @@ function replaceString(str, match, fn) {
 
     results = results.concat(fn(result, i));
     curCharStart = result.index + result[0].length;
-    re.lastIndex = curCharStart;
   }
 
   // End fencepost
