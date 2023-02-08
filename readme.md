@@ -6,7 +6,7 @@ A simple way to safely do string replacement with React components. Zero depende
 
 > Aka turn a string into an array of React components
 
-Forked to allow the replacer function to utilize a raw match result
+Forked to allow the replacer function to utilize a raw match result array as returned from `RegExp#exec`
 
 ## Install
 
