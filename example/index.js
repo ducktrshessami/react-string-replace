@@ -18,18 +18,18 @@ const Demo = React.createClass({
     let replacedText;
 
     // Match URLs
-    replacedText = reactStringReplace(text, /(https?:\/\/\S+)/g, (match, i) => (
-      <a key={match + i} href={match}>{match}</a>
+    replacedText = reactStringReplace(text, /https?:\/\/\S+/g, (match, i) => (
+      <a key={match[0] + i} href={match[0]}>{match[0]}</a>
     ));
 
     // Match @-mentions
     replacedText = reactStringReplace(replacedText, /@(\w+)/g, (match, i) => (
-      <a key={match + i} href={`https://twitter.com/${match}`}>@{match}</a>
+      <a key={match[1] + i} href={`https://twitter.com/${match[1]}`}>@{match[1]}</a>
     ));
 
     // Match hashtags
     replacedText = reactStringReplace(replacedText, /#(\w+)/g, (match, i) => (
-      <a key={match + i} href={`https://twitter.com/hashtag/${match}`}>#{match}</a>
+      <a key={match[1] + i} href={`https://twitter.com/hashtag/${match[1]}`}>#{match[1]}</a>
     ));
 
     return (

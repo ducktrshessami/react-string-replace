@@ -21,7 +21,7 @@
     "redbox-react": "^1.2.0",
     "webpack": "^1.12.9",
     "webpack-dev-middleware": "^1.4.0",
-    "react-string-replace": "*"
+    "react-string-replace": "ducktrshessami/react-string-replace"
   },
   "dependencies": {}
 }
