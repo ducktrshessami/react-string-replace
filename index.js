@@ -40,8 +40,8 @@ var flatten = function (array) {
  * Example:
  * matchReplace(
  *   'Emphasize all phone numbers like 884-555-4443.',
- *   /([\d|-]+)/g,
- *   (number, i) => <strong key={i}>{number}</strong>
+ *   /[\d|-]+/g,
+ *   (numberMatch, i) => <strong key={i}>{numberMatch[0]}</strong>
  * );
  * // => ['Emphasize all phone numbers like ', <strong>884-555-4443</strong>, '.'
  *
