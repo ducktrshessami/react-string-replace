@@ -1,7 +1,5 @@
 # React String Replace
 
-[![react-string-replace.js on NPM](https://img.shields.io/npm/v/react-string-replace.svg)](https://www.npmjs.com/package/react-string-replace)
-
 A simple way to safely do string replacement with React components. Zero dependencies.
 
 > Aka turn a string into an array of React components
