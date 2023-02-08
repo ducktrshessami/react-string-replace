@@ -10,6 +10,9 @@
     "email": "ian@iansinnott.com",
     "url": "https://github.com/iansinnott"
   },
+  "contributors": [
+    "ducktrshessami (https://github.com/ducktrshessami)"
+  ],
   "engines": {
     "node": ">=0.12.0"
   },

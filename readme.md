@@ -162,3 +162,5 @@ For details on API tests see [the tests file](./test.js).
 ## License
 
 MIT © [Ian Sinnott](https://github.com/iansinnott)
+
+MIT © [ducktrshessami](https://github.com/ducktrshessami)
