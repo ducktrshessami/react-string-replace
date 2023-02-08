@@ -60,12 +60,7 @@ function replaceString(str, match, fn) {
     throw new TypeError('First argument to react-string-replace#replaceString must be a string');
   }
 
-  var re = match;
-
-  if (!isRegExp(re)) {
-    re = new RegExp('(' + escapeRegExp(re) + ')', 'gi');
-  }
-
+  var re = isRegExp(match) ? new RegExp(match) : new RegExp('(' + escapeRegExp(match) + ')', 'gi');
   var result = str.split(re);
 
   // Apply fn to all odd elements
