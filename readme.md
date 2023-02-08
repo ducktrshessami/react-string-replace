@@ -150,7 +150,7 @@ The replacer function to run each time `match` is found. This function will be p
 
 ```js
 const replacementFunction = (match, index, offset) => <span key={index}>{match}</span>;
-reactStringReplace('hey hey you', /(hey)/g, replacementFunction);
+reactStringReplace('hey hey you', /hey/g, replacementFunction);
 ```
 
 ## API Stability
