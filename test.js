@@ -13,7 +13,7 @@ test('Returns an array', t => {
 
 test('Works with matching groups', t => {
   t.deepEqual(
-    replaceString('hey there', /(hey)/g, x => ({ worked: x[1] })),
+    replaceString('hey there', /(?<greeting>hey)/g, x => ({ worked: x.groups.greeting })),
     [{ worked: 'hey' }, ' there']
   );
 });
