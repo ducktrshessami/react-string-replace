@@ -51,9 +51,6 @@ var flatten = function (array) {
  * @return {array}
  */
 function replaceString(str, match, fn) {
-  var curCharStart = 0;
-  var curCharLen = 0;
-
   if (str === '') {
     return str;
   } else if (!str || !isString(str)) {
@@ -61,23 +58,25 @@ function replaceString(str, match, fn) {
   }
 
   var re = isRegExp(match) ? new RegExp(match) : new RegExp('(' + escapeRegExp(match) + ')', 'gi');
-  var result = str.split(re);
+  var results = [];
+  var curCharStart = 0;
 
-  // Apply fn to all odd elements
-  for (var i = 1, length = result.length; i < length; i += 2) {
-    /** @see {@link https://github.com/iansinnott/react-string-replace/issues/74} */
-    if (result[i] === undefined || result[i - 1] === undefined) {
-      console.warn('reactStringReplace: Encountered undefined value during string replacement. Your RegExp may not be working the way you expect.');
-      continue;
+  for (var result = re.exec(str), i = 0; result; result = re.exec(str), i++) {
+    if (result.index > curCharStart) {
+      results.push(str.slice(curCharStart, result.index));
     }
 
-    curCharLen = result[i].length;
-    curCharStart += result[i - 1].length;
-    result[i] = fn(result[i], i, curCharStart);
-    curCharStart += curCharLen;
+    results.push(fn(result[0], i, result.index));
+    curCharStart = result.index + result[0].length;
+    re.lastIndex = curCharStart;
   }
 
-  return result;
+  // End fencepost
+  if (str.length > curCharStart) {
+    results.push(str.slice(curCharStart));
+  }
+
+  return results;
 }
 
 module.exports = function reactStringReplace(source, match, fn) {
