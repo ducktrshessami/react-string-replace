@@ -33,7 +33,7 @@ Examples will use `import` since it is more common in the React ecosystem.
 import reactStringReplace from 'react-string-replace';
 
 reactStringReplace('whats your name', 'your', (match, i) => (
-  <span>{match}</span>
+  <span>{match[0]}</span>
 ));
 // => [ 'whats ', <span>your</span>, ' name' ]
 ```
@@ -43,8 +43,8 @@ reactStringReplace('whats your name', 'your', (match, i) => (
 Highlight all digits within a string by surrounding them in span tags:
 
 ```js
-reactStringReplace('Apt 111, phone number 5555555555.', /(\d+)/g, (match, i) => (
-  <span key={i} style={{ color: 'red' }}>{match}</span>
+reactStringReplace('Apt 111, phone number 5555555555.', /\d+/g, (match, i) => (
+  <span key={i} style={{ color: 'red' }}>{match[0]}</span>
 ));
 // =>
 // [
@@ -66,8 +66,8 @@ const HighlightNumbers = React.createClass({
     const content = 'Hey my number is 555-555-5555.';
     return (
       <div>
-        {reactStringReplace(content, /(\d+)/g, (match, i) => (
-          <span key={i} style={{ color: 'red' }}>{match}</span>
+        {reactStringReplace(content, /\d+/g, (match, i) => (
+          <span key={i} style={{ color: 'red' }}>{match[0]}</span>
         ))}
       </div>
     );
@@ -86,18 +86,18 @@ const text = 'Hey @ian_sinn, check out this link https://github.com/iansinnott/ 
 let replacedText;
 
 // Match URLs
-replacedText = reactStringReplace(text, /(https?:\/\/\S+)/g, (match, i) => (
-  <a key={match + i} href={match}>{match}</a>
+replacedText = reactStringReplace(text, /https?:\/\/\S+/g, (match, i) => (
+  <a key={match[0] + i} href={match[0]}>{match[0]}</a>
 ));
 
 // Match @-mentions
 replacedText = reactStringReplace(replacedText, /@(\w+)/g, (match, i) => (
-  <a key={match + i} href={`https://twitter.com/${match}`}>@{match}</a>
+  <a key={match[1] + i} href={`https://twitter.com/${match[1]}`}>@{match[1]}</a>
 ));
 
 // Match hashtags
 replacedText = reactStringReplace(replacedText, /#(\w+)/g, (match, i) => (
-  <a key={match + i} href={`https://twitter.com/hashtag/${match}`}>#{match}</a>
+  <a key={match[1] + i} href={`https://twitter.com/hashtag/${match[1]}`}>#{match[1]}</a>
 ));
 
 // => [
@@ -106,8 +106,7 @@ replacedText = reactStringReplace(replacedText, /#(\w+)/g, (match, i) => (
 //   ', check out this link ',
 //   <a href='https://github.com/iansinnott/'>https://github.com/iansinnott/</a>,
 //   '. Hope to see you at ',
-//   <a href='https://twitter.com/hashtag/reactconf'>#reactconf</a>,
-//   '',
+//   <a href='https://twitter.com/hashtag/reactconf'>#reactconf</a>
 // ];
 ```
 
@@ -137,19 +136,19 @@ Type: `regexp|string`
 
 The string or RegExp you would like to replace within `string`. 
 
-**NOTE:** When using a `RegExp` you **MUST** include a capturing group. (`/(hey)/g` is ok, `/hey/g` is not.)
+**NOTE:** When using a `RegExp`, flags will be coerced to include `g` and exclude `y`.
 
 Example: Replace all occurrences of `'hey'` with `<span>hey</span>`
 
 ```js
-reactStringReplace('hey hey you', /(hey)/g, () => <span>hey</span>);
+reactStringReplace('hey hey you', /hey/g, () => <span>hey</span>);
 ```
 
 #### replacementFunction
 
 Type: `function`
 
-The replacer function to run each time `match` is found. This function will be passed the matching string and an `index` which can be used for adding keys to replacement components if necessary. Character `offset` identifies the position of match start in the provided text.
+The replacer function to run each time `match` is found. This function will be passed the matched result array (as returned from `RegExp#exec`) and an `index` which can be used for adding keys to replacement components if necessary.
 
 ```js
 const replacementFunction = (match, index, offset) => <span key={index}>{match}</span>;
